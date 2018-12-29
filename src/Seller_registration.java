@@ -32,6 +32,7 @@ public class Seller_registration extends HttpServlet {
 	{	
 		PrintWriter pw = response.getWriter();
 		String Shop_category="",Shop_paymentmethod="";
+		String Status="Pending";
 		
 		try
 		{
@@ -51,9 +52,10 @@ public class Seller_registration extends HttpServlet {
 			String Aadharcardno = request.getParameter("aadharcardno");
 			String Bankaccountno = request.getParameter("bankaccountno");
 			
-			int Sellermobileno = Integer.parseInt(request.getParameter("sellermobileno"));
-			int Alternativemobileno = Integer.parseInt(request.getParameter("alternativemobileno"));
-			int Shopmobileno = Integer.parseInt(request.getParameter("shopmobileno"));
+			String Sellermobileno = request.getParameter("sellermobileno");
+			String Alternativemobileno = request.getParameter("alternativemobileno");
+			String Shopmobileno = request.getParameter("shopmobileno");
+			
 			
 			//shop category checkbox
 			for(int i=0;i<Shopcategory.length;i++)
@@ -77,10 +79,10 @@ public class Seller_registration extends HttpServlet {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryhub","root","");
-			PreparedStatement pst = conn.prepareStatement("insert into sellerregistration(sellername,sellermobileno,alternativemobileno,email,confirmemail,selleraddress,shopname,shopaddress,shopcategory,shopemail,shopmobileno,shoppaymentmethod,aadharcardno,gstno,pancardno,bankaccountno,sellerbankholdername,ifscno) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement pst = conn.prepareStatement("insert into sellerregistration(sellername,sellermobileno,alternativemobileno,email,confirmemail,selleraddress,shopname,shopaddress,shopcategory,shopemail,shopmobileno,shoppaymentmethod,aadharcardno,gstno,pancardno,bankaccountno,sellerbankholdername,ifscno,status) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pst.setString(1,Sellername);
-			pst.setInt(2,Sellermobileno);
-			pst.setInt(3,Alternativemobileno);
+			pst.setString(2,Sellermobileno);
+			pst.setString(3,Alternativemobileno);
 			pst.setString(4,Selleremail);
 			pst.setString(5,Sellerconfirmemail);
 			pst.setString(6,Selleraddress);
@@ -88,7 +90,7 @@ public class Seller_registration extends HttpServlet {
 			pst.setString(8,Shopaddress);
 			pst.setString(9, Shop_category);
 			pst.setString(10,Shopemail);
-			pst.setInt(11,Shopmobileno);
+			pst.setString(11,Shopmobileno);
 			pst.setString(12, Shop_paymentmethod);
 			pst.setString(13,Aadharcardno);
 			pst.setString(14,Gstno);
@@ -96,6 +98,7 @@ public class Seller_registration extends HttpServlet {
 			pst.setString(16,Bankaccountno);
 			pst.setString(17,Sellerbankholdername);
 			pst.setString(18,Ifscno);
+			pst.setString(19, Status);
 			
 			
 			
